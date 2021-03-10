@@ -40,3 +40,5 @@ Tool link: https://github.com/nektos/act
 Make sure to regularly `docker ps` and check for these as they can prevent future runs
 
 * Act may fail to resolve the version number on certain actions, so you'll need to explicitly provide it, eg: `@v1` vs `@v1.5.8` the exact cause of this hasn't been identified yet.
+
+* Act can fail to run when it's searching your repo recursively and encounters a sym-link designed to be used in the context of a containerized environment (the path only exists once in a container)
