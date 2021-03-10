@@ -35,6 +35,8 @@ Tool link: https://github.com/nektos/act
 `echo '-P ubuntu-20.04=nektos/act-environments-ubuntu:18.04' >> .actrc`
 
 ## Known Issues
-If runners are interrupted (forced) you can end up with stubborn containers that cannot be easily killed. Requires restart? Still looking into this.
+* If runners are interrupted (forced) you can end up with stubborn containers that cannot be easily killed. Requires restart? Still looking into this.
 
 Make sure to regularly `docker ps` and check for these as they can prevent future runs
+
+* Act may fail to resolve the version number on certain actions, so you'll need to explicitly provide it, eg: `@v1` vs `@v1.5.8` the exact cause of this hasn't been identified yet.
