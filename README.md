@@ -42,3 +42,7 @@ Make sure to regularly `docker ps` and check for these as they can prevent futur
 * Act may fail to resolve the version number on certain actions, so you'll need to explicitly provide it, eg: `@v1` vs `@v1.5.8` the exact cause of this hasn't been identified yet.
 
 * Act can fail to run when it's searching your repo recursively and encounters a sym-link designed to be used in the context of a containerized environment (the path only exists once in a container)
+
+* Artifacts are currently not supported but are being actively worked on. This prevents cross-job artifact sharing. See https://github.com/nektos/act/issues/329
+
+* action/cache will always miss, but you can simulate caching with `-r` to reuse state.
