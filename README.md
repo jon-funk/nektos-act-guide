@@ -20,7 +20,7 @@ Tool link: https://github.com/nektos/act
 ### Caveats/Gotchas
 * If job keys match, it can be confusing to specify which to run, just provide a distinct name for each job and use that value in the job flag
 
-* The `-P` effectively causes the runner image specified in your workflow jobs `runs-on` key to be overridden. Using `ubuntu-20.04=nektos/act-environments-ubuntu:18.04` is important because the default slim image used by act is likely insufficient for your workflows. The nektos 18.04 is the largest image on offer but obviously this brings environment parity into question. Make sure you check these and override appropriately.
+* The `-P` effectively causes the runner image specified in your workflow jobs `runs-on` key to be overridden. Using `ubuntu-20.04=nektos/act-environments-ubuntu:18.04` is important because the default slim image used by act is likely insufficient for your workflows. The nektos 18.04 is the largest image on offer but obviously this brings environment parity into question. Make sure you check these and override appropriately. The first time you run act with the `-P` flag for an image you do not have, it will sometimes take 5-10 minutes to download, resulting in it hanging.
 
 ## Extras
 * dry run mode with the `-n` flag
@@ -33,6 +33,7 @@ Tool link: https://github.com/nektos/act
 
 * Want a default runner override? You can set it up like so your project root directory:
 `echo '-P ubuntu-20.04=nektos/act-environments-ubuntu:18.04' >> .actrc`
+You can also do the same with the secrets; ensure these are on newlines within the `.actrc` file or act will not parse it properly.
 
 ## Known Issues
 * If runners are interrupted (forced) you can end up with stubborn containers that cannot be easily killed. Requires restart? Still looking into this.
@@ -46,3 +47,5 @@ Make sure to regularly `docker ps` and check for these as they can prevent futur
 * Artifacts are currently not supported but are being actively worked on. This prevents cross-job artifact sharing. See https://github.com/nektos/act/issues/329
 
 * action/cache will always miss, but you can simulate caching with `-r` to reuse state.
+
+* Act generates a `.cache` directory that can cause workflow/networking issues if not cleared out for a long time. eg: it can affect the way it resolves github action download urls. Delete the `.cache` periodically.
